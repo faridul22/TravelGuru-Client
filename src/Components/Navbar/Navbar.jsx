@@ -1,9 +1,24 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
+    const navItems = <>
+        <li className='mx-3'>
+            <Link to='/'>Home</Link>
+        </li>
+        <li className='mx-3'>
+            <Link to='/allTouristSpot'>All Tourists Spot</Link>
+        </li>
+        <li className='mx-3'>
+            <Link to='/addTouristSpot'>Add Tourists Spot</Link>
+        </li>
+        <li className='mx-3'>
+            <Link to='/myList'>My List</Link>
+        </li>
+    </>
     return (
         <div>
-            <div className="navbar bg-base-100">
+            <div className="navbar bg-neutral text-neutral-content">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -22,37 +37,23 @@ const Navbar = () => {
                         </div>
                         <ul
                             tabIndex={0}
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                            <li><a>Item 1</a></li>
-                            <li>
-                                <a>Parent</a>
-                                <ul className="p-2">
-                                    <li><a>Submenu 1</a></li>
-                                    <li><a>Submenu 2</a></li>
-                                </ul>
-                            </li>
-                            <li><a>Item 3</a></li>
+                            className="menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow bg-neutral text-neutral-content">
+                            {navItems}
                         </ul>
                     </div>
-                    <a className="btn btn-ghost text-xl">daisyUI</a>
+                    <a className="btn btn-ghost text-xl">TravelGuru</a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1">
-                        <li><a>Item 1</a></li>
-                        <li>
-                            <details>
-                                <summary>Parent</summary>
-                                <ul className="p-2">
-                                    <li><a>Submenu 1</a></li>
-                                    <li><a>Submenu 2</a></li>
-                                </ul>
-                            </details>
-                        </li>
-                        <li><a>Item 3</a></li>
+                    <ul className="menu-horizontal px-1">
+                        {navItems}
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <a className="btn">Button</a>
+                    <div className="avatar">
+                        <div className="ring-offset-base-100 w-[50px] rounded-full ring ring-offset-2">
+                            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
