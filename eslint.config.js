@@ -17,9 +17,9 @@ export default [
         sourceType: 'module',
       },
     },
-    env: {
-      node: true, // Add this line to include Node.js environment
-    },
+    // env: {
+    //   node: true, // Add this line to include Node.js environment
+    // },
     settings: { react: { version: '18.3' } },
     plugins: {
       react,
