@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider/AuthProvider";
 import { Link } from "react-router-dom";
+import GoogleLogin from "../../Components/GoogleLogin/GoogleLogin";
 
 
 const SignUp = () => {
@@ -67,8 +68,9 @@ const SignUp = () => {
                                 <button className="btn btn-success">Sign UP</button>
                             </div>
                         </form>
+                        <div className="divider">OR</div>
+                        <GoogleLogin />
                         <label className="label">
-
                             <p>Already you have an account? Please <Link className="label-text-alt link link-hover text-blue-700 font-bold" to='/signIn'>Sign In</Link></p>
                         </label>
                     </div>
