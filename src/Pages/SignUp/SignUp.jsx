@@ -64,7 +64,7 @@ const SignUp = () => {
                                 <input type="password" name="confirm" placeholder="Confirm Password" className="input input-bordered" required />
                             </div>
                             <div className="form-control mt-6">
-                                <button className="btn btn-success">SignUP</button>
+                                <button className="btn btn-success">Sign UP</button>
                             </div>
                         </form>
                         <label className="label">

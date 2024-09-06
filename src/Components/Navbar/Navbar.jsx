@@ -1,7 +1,10 @@
-import React from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../Providers/AuthProvider/AuthProvider';
 
 const Navbar = () => {
+    const { user, logOut } = useContext(AuthContext);
+    console.log(user)
     const navItems = <>
         <li className='mx-3'>
             <Link to='/'>Home</Link>
@@ -16,6 +19,15 @@ const Navbar = () => {
             <Link to='/myList'>My List</Link>
         </li>
     </>
+
+    const handleLogOut = () => {
+        logOut()
+            .then(result => {
+                console.log(result)
+                alert("User log Out successfully")
+            })
+            .catch(error => { console.error(error) })
+    }
     return (
         <div>
             <div className="navbar bg-neutral text-neutral-content">
@@ -48,11 +60,31 @@ const Navbar = () => {
                         {navItems}
                     </ul>
                 </div>
+                {/* Profile status */}
                 <div className="navbar-end">
-                    <div className="avatar">
-                        <div className="ring-offset-base-100 w-[50px] rounded-full ring ring-offset-2">
-                            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
-                        </div>
+                    <div className="dropdown dropdown-end">
+                        {
+                            user ? <>
+                                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                    <div className="w-10 rounded-full">
+                                        {
+                                            user.photoURL ? <img title={user.displayName} src={user.photoURL} /> : <img title={user?.displayName} src="https://i.ibb.co/cLNMyCL/user-avata-removebg-preview.png" />
+                                        }
+                                    </div>
+                                </div>
+                                <ul
+                                    tabIndex={0}
+                                    className="menu menu-sm dropdown-content bg-neutral text-neutral-content rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                                    <li>
+                                        <a className="justify-between">
+                                            Profile
+                                            <span className="badge">New</span>
+                                        </a>
+                                    </li>
+                                    <li><button onClick={handleLogOut}>Log Out</button></li>
+                                </ul>
+                            </> : <Link to='/signIn'>Sign In</Link>
+                        }
                     </div>
                 </div>
             </div>
