@@ -4,6 +4,7 @@ import Main from "../Layouts/Main";
 import Home from "../Pages/Home/Home";
 import SignIn from "../Pages/SignIn/SignIn";
 import SignUp from "../Pages/SignUp/SignUp";
+import AddTouristSpot from "../Pages/AddTouristSpot/AddTouristSpot";
 
 const router = createBrowserRouter([
     {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home />
+            },
+            {
+                path: '/addTouristSpot',
+                element: <AddTouristSpot />
             },
             {
                 path: '/signIn',
