@@ -5,19 +5,47 @@ import GoogleLogin from "../../Components/GoogleLogin/GoogleLogin";
 
 
 const SignUp = () => {
-    const { signUp } = useContext(AuthContext);
+    const { signUp, updateUser, error, setError } = useContext(AuthContext);
 
     const handleSignUp = event => {
+        // stop default reload
         event.preventDefault();
+        setError("")
+        // get input field data
         const form = event.target;
+        const name = form.name.value;
+        const photoURL = form.photoURL.value;
         const email = form.email.value;
         const password = form.password.value;
         const confirm = form.confirm.value;
         const newUser = { email, password, }
         console.log(newUser, confirm)
 
-        if (password !== confirm) {
-            return alert('Your password are not match')
+        // password validation
+        setError("")
+        if (!(/(?=.*?[A-Z])/).test(password)) {
+            setError("At least one upper case English letter")
+            return
+        }
+        else if (!(/(?=.*?[a-z])/).test(password)) {
+            setError("At least one lower case English letter,")
+            return
+        }
+        else if (!(/(?=.*?[0-9])/).test(password)) {
+            setError("At least one digit")
+            return
+        }
+        else if (!(/(?=.*?[#?!@$%^&*-])/).test(password)) {
+            setError("At least one special character")
+            return
+        }
+        else if (!(/.{8,}/).test(password)) {
+            setError("Minimum eight in length")
+            return
+        }
+
+        else if (password !== confirm) {
+            return setError('Your password does not match')
         }
         else {
             signUp(email, password)
@@ -25,6 +53,11 @@ const SignUp = () => {
                     const user = result.user;
                     console.log(user)
                     alert("User created successfully")
+                    updateUser(name, photoURL)
+                        .then(result => {
+                            console.log(result.user)
+                        })
+                        .catch(error => { console.error(error) })
                 })
                 .catch(error => {
                     console.error(error)
@@ -43,6 +76,21 @@ const SignUp = () => {
                 <div className="rounded-md bg-base-100 w-full max-w-sm shadow-xl">
                     <div className="card-body">
                         <form onSubmit={handleSignUp}>
+
+                            {/* Name field */}
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Your Name</span>
+                                </label>
+                                <input type="text" name="name" placeholder="Your Full Name" className="input input-bordered" required />
+                            </div>
+                            {/* Photo url field */}
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Photo URL</span>
+                                </label>
+                                <input type="url" name="photoURL" placeholder="Your Photo URL" className="input input-bordered" required />
+                            </div>
                             {/* Email field */}
                             <div className="form-control">
                                 <label className="label">
@@ -60,13 +108,16 @@ const SignUp = () => {
                             {/* Confirm pass field*/}
                             <div className="form-control">
                                 <label className="label">
-                                    <span className="label-text">Password</span>
+                                    <span className="label-text">Confirm Password</span>
                                 </label>
                                 <input type="password" name="confirm" placeholder="Confirm Password" className="input input-bordered" required />
                             </div>
                             <div className="form-control mt-6">
                                 <button className="btn btn-success">Sign UP</button>
                             </div>
+                            <label className="label">
+                                <p className="label-text-alt text-red-700">{error}</p>
+                            </label>
                         </form>
                         <div className="divider">OR</div>
                         <GoogleLogin />
